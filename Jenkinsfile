@@ -3,7 +3,7 @@
 pipeline {
 
     parameters {
-        
+                string(name: 'environment', defaultValue: 'default', description: 'Terraform workspace environment')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
 
     }
