@@ -3,7 +3,6 @@
 pipeline {
 
     parameters {
-                string(name: 'environment', defaultValue: 'default', description: 'Terraform workspace environment')
         booleanParam(name: 'autoApprove', defaultValue: false, description: 'Automatically run apply after generating plan?')
 
     }
@@ -33,10 +32,8 @@ pipeline {
 
         stage('Plan') {
             steps {
-                sh 'pwd;cd terraform/ ; terraform init -input=false'
-                sh 'pwd;cd terraform/ ; terraform workspace new ${environment}'
-                sh 'pwd;cd terraform/ ; terraform workspace select ${environment}'
-                sh "pwd;cd terraform/ ; terraform plan -input=false -out tfplan "
+                sh 'pwd;cd terraform/ ; terraform init'
+                sh "pwd;cd terraform/ ; terraform plan -out tfplan"
                 sh 'pwd;cd terraform/ ; terraform show -no-color tfplan > tfplan.txt'
             }
         }
